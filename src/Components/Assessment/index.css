@@ -33,14 +33,19 @@
   flex-wrap: wrap;
   padding: 0px;
 }
+.img-h {
+  width: 320px;
+  height: 100px;
+}
 .li-container {
-  width: 380px;
   height: 64px;
   background-color: #c2d9fc;
   padding: 20px;
   margin-right: 40px;
   margin-bottom: 20px;
   border-radius: 5px;
+  display: flex;
+  width: 380px;
 }
 .timer-container {
   display: flex;
@@ -56,16 +61,66 @@
 
 .heading-timer {
   display: flex;
+  border-radius: 5px;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #283f63;
   height: 53px;
   text-align: center;
 }
 .h1-timer {
   font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 400px;
+  color: white;
+  padding: 10px;
 }
 .timer-container-sub {
   display: flex;
   flex-direction: row;
+  margin-left: 10px;
+}
+
+.timer-small-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.p-timer {
+  border: 1px solid blue;
+  border-radius: 25px;
+  padding-top: 1px;
+  padding-left: 5px;
+  padding-bottom: 1px;
+  padding-right: 5px;
+}
+
+.p-heading {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: rgba(22, 70, 135, 1);
+  font-weight: 500;
+}
+.hr-q {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.h-q {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: 'Roboto';
+  color: rgba(22, 70, 135, 1);
+  margin-left: 10px;
+}
+.p-bg {
+  background-color: #8344c2;
+  color: white;
+}
+
+.sub-btn {
+  display: flex;
 }

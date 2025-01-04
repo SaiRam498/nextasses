@@ -22,10 +22,23 @@
     }
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": 0,
+    "array-callback-return": 0,
+    "no-restricted-syntax": 0,
+    "react/no-access-state-in-setstate": 0,
+    "camelcase": 0,
+    "no-plusplus": 0,
+    "no-labels": 0,
+    "no-unused-labels": 0,
+    "no-unused-expressions": 0,
     "react/destructuring-assignment": 0,
     "react/no-array-index-key": 0,
-    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
     "react/state-in-constructor": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",

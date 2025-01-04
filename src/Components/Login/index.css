@@ -57,7 +57,7 @@ input[type='password'] {
   gap: 8px;
 }
 
-button {
+.button-lg {
   background-color: #001f54;
   color: white;
   border: none;
@@ -68,7 +68,7 @@ button {
   font-weight: bold;
 }
 
-button:hover {
+.button-lg:hover {
   background-color: #002a6f;
 }
 
@@ -84,7 +84,7 @@ button:hover {
     padding: 8px;
   }
 
-  button {
+  .button-lg {
     font-size: 14px;
     padding: 10px;
   }

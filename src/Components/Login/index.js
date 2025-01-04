@@ -50,7 +50,7 @@ class Login extends Component {
       body: JSON.stringify(userDetails),
     }
 
-    const response = fetch(url, options)
+    const response = await fetch(url, options)
     const data = await response.json()
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
@@ -101,7 +101,9 @@ class Login extends Component {
               />
               <label htmlFor="show-password">Show Password</label>
             </div>
-            <button type="submit">Login</button>
+            <button className="button-lg" type="submit">
+              Login
+            </button>
             {showSubmitError && <p>*{errorMsg}</p>}
           </form>
         </div>
