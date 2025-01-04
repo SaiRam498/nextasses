@@ -23,6 +23,8 @@
   ],
   "rules": {
     "prettier/prettier": "error",
+    "react/destructuring-assignment": 0,
+    "react/no-array-index-key": 0,
     "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
     "react/state-in-constructor": "off",
     "react/react-in-jsx-scope": "off",

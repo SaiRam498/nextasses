@@ -1,0 +1,19 @@
+.nav-container {
+  padding: 20px;
+  background-color: rgba(38, 56, 104, 1);
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-content-desktop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0px;
+  width: 95%;
+}
+.header-logo {
+  width: 98px;
+  height: 57px;
+}

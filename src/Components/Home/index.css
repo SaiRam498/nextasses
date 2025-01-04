@@ -1,0 +1,81 @@
+/* General Styles */
+.assessment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Image Container */
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.assessment-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Instructions Container */
+.instructions-container {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-container h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #243b73;
+}
+
+.instructions-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  color: #333;
+}
+
+.instructions-container li {
+  margin-bottom: 10px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  background-color: #243b73;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.start-button:hover {
+  background-color: #1b2e59;
+}
+
+/* Responsive Design */
+
+/* Large Devices */
+@media (min-width: 1024px) {
+  .assessment-container {
+    flex-direction: row;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .assessment-container {
+    flex-direction: column;
+  }
+
+  .image-container {
+    margin-bottom: 20px;
+  }
+}
