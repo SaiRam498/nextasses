@@ -232,7 +232,7 @@ class Assessment extends Component {
                 onChange={event =>
                   this.handleOptionSelect(question.id, event.target.value)
                 }
-                value={selectedOptions[question.id] || ''} // Ensure selected value reflects the state
+                value={selectedOptions[question.id] || ''}
               >
                 {question.options.map(option => (
                   <option key={option.id} value={option.id}>
