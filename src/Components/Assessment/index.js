@@ -45,7 +45,7 @@ class Assessment extends Component {
     if (isTimerCompleted) {
       this.clearTimerInterval()
       this.setState({isTimerRunning: false})
-      this.handleSubmit(timevalue)
+      this.handleSubmit(true)
     } else {
       this.setState(prevState => ({sec: prevState.sec + 1}))
     }
@@ -136,6 +136,17 @@ class Assessment extends Component {
   }
 
   handleQuestionClick = index => {
+    const {questions} = this.state
+    const currentQuestion = questions[index]
+
+    if (currentQuestion.options_type === 'SINGLE_SELECT') {
+      const firstOptionId = currentQuestion.options[0].id
+      this.handleOptionSelect(currentQuestion.id, firstOptionId)
+
+      // Set a state flag to show the paragraph when the first option is selected
+      this.setState({timevalue: true}) // Set state to trigger paragraph display
+    }
+
     this.setState({currentQuestionIndex: index})
   }
 
@@ -166,18 +177,21 @@ class Assessment extends Component {
         return (
           <ul>
             {question.options.map(option => (
-              <li
-                className="li-container"
-                key={option.id}
-                onClick={() => this.handleOptionSelect(question.id, option.id)}
-                style={{
-                  backgroundColor:
-                    selectedOptions[question.id] === option.id
-                      ? 'blue'
-                      : 'lightblue',
-                }}
-              >
-                {option.text}
+              <li key={option.id} className="li">
+                <button
+                  className="li-container"
+                  onClick={() =>
+                    this.handleOptionSelect(question.id, option.id)
+                  }
+                  style={{
+                    backgroundColor:
+                      selectedOptions[question.id] === option.id
+                        ? 'blue'
+                        : 'lightblue',
+                  }}
+                >
+                  {option.text}
+                </button>
               </li>
             ))}
           </ul>
@@ -185,44 +199,49 @@ class Assessment extends Component {
 
       case 'IMAGE':
         return (
-          <li>
+          <ul>
             {question.options.map(option => (
-              <button
-                onClick={() => this.handleOptionSelect(question.id, option.id)}
-              >
-                <img
-                  className="img-h"
-                  key={option.id}
-                  src={option.image_url}
-                  alt={option.text}
-                  style={{
-                    border:
-                      selectedOptions[question.id] === option.id
-                        ? '2px solid blue'
-                        : 'none',
-                  }}
-                />
-              </button>
+              <li key={`option-${option.id}`}>
+                <button
+                  onClick={() =>
+                    this.handleOptionSelect(question.id, option.id)
+                  }
+                >
+                  <img
+                    className="img-h"
+                    src={option.image_url}
+                    alt={option.text}
+                    style={{
+                      border:
+                        selectedOptions[question.id] === option.id
+                          ? '2px solid blue'
+                          : 'none',
+                    }}
+                  />
+                </button>
+              </li>
             ))}
-          </li>
+          </ul>
         )
 
       case 'SINGLE_SELECT':
         return (
-          <div>
-            <select
-              onChange={event =>
-                this.handleOptionSelect(question.id, event.target.value)
-              }
-              value={selectedOptions[question.id] || ''}
-            >
-              {question.options.map(option => (
-                <option key={option.id} value={option.id}>
-                  {option.text}
-                </option>
-              ))}
-            </select>
-          </div>
+          <ul>
+            <li>
+              <select
+                onChange={event =>
+                  this.handleOptionSelect(question.id, event.target.value)
+                }
+                value={selectedOptions[question.id] || ''} // Ensure selected value reflects the state
+              >
+                {question.options.map(option => (
+                  <option key={option.id} value={option.id}>
+                    {option.text}
+                  </option>
+                ))}
+              </select>
+            </li>
+          </ul>
         )
 
       default:
@@ -245,18 +264,38 @@ class Assessment extends Component {
 
       answeredCount,
       unansweredCount,
+      timevalue,
     } = this.state
     const currentQuestion = questions[currentQuestionIndex]
     return (
       <div className="question-container-main">
         <div className="question-container-sub">
-          <p className="heading-question">{currentQuestion.question_text}</p>
+          <ul>
+            <li>
+              <p className="heading-question">
+                {currentQuestionIndex + 1}.
+                {this.state.questions[currentQuestionIndex].question_text}
+              </p>
+            </li>
+          </ul>
           <hr className="hr-question" />
-          <ul className="ul-question">{this.renderOptions(currentQuestion)}</ul>
-          {currentQuestionIndex !== questions.length - 1 && (
-            <button onClick={this.handleNextQuestion}>Next Question</button>
+
+          {this.state.questions[currentQuestionIndex].options_type ===
+            'SINGLE_SELECT' &&
+            timevalue && <p>First option is selected by default</p>}
+
+          <ul className="ul-question">
+            {this.renderOptions(this.state.questions[currentQuestionIndex])}
+          </ul>
+
+          {/* Show "Next Question" button only if it's not the last question */}
+          {currentQuestionIndex !== this.state.questions.length - 1 && (
+            <button onClick={this.handleNextQuestion} type="button">
+              Next Question
+            </button>
           )}
         </div>
+
         <div className="timer-container">
           <div>
             <div className="heading-timer">
@@ -265,6 +304,7 @@ class Assessment extends Component {
                 00:{this.getElapsedSecondsInTimeFormat()}
               </p>
             </div>
+
             <div className="timer-container-sub">
               <div className="timer-small-cont">
                 <p className="p-timer p-bg">{answeredCount}</p>
@@ -276,13 +316,16 @@ class Assessment extends Component {
                 <p className="p-heading">Unanswered Questions</p>
               </div>
             </div>
+
             <hr className="hr-q" />
+
             <div>
-              <h1 className="h-q">Questions ({questions.length})</h1>
+              <h1 className="h-q">Questions ({this.state.questions.length})</h1>
               <div>
-                {questions.map((_, index) => (
+                {this.state.questions.map((_, index) => (
                   <button
                     key={index}
+                    type="button"
                     onClick={() => this.handleQuestionClick(index)}
                     style={{
                       width: '40px',
@@ -301,6 +344,7 @@ class Assessment extends Component {
               </div>
             </div>
           </div>
+
           <div>
             <button type="button" onClick={this.onStartOrPauseTimer}>
               Submit Assessment
